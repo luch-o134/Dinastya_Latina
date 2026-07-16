@@ -1,0 +1,260 @@
+/* --- ESTILOS GENERALES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #050a15;
+    /* Azul extremadamente oscuro, casi negro */
+    color: #e0e0e0;
+    /* Texto plateado/metálico */
+    line-height: 1.6;
+}
+
+/* --- BARRA DE NAVEGACIÓN --- */
+header {
+    background-color: #020612;
+    border-bottom: 3px solid #D52B1E;
+    /* Rojo vibrante tipo bandera */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: rgba(213, 43, 30, 0.2);
+    /* Fondo rojizo semitransparente al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+/* Estilo para la página actual (INICIO en este caso) */
+nav a.active {
+    background-color: #003399;
+    /* Azul de la estrella/centro */
+    color: #ffffff;
+    border: 1px solid #0044cc;
+}
+
+/* --- SECCIÓN HERO (Principal) --- */
+.hero {
+    position: relative;
+    text-align: center;
+    padding: 8rem 2rem;
+    border-bottom: 2px solid #003399;
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Slides de fondo */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 0;
+}
+
+/* Overlay oscuro sobre cada imagen para legibilidad */
+.hero-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 10, 21, 0.68);
+}
+
+.hero-slide.slide-1 { background-image: url('imagenes/imagen1.png'); }
+.hero-slide.slide-2 { background-image: url('imagenes/imagen2.png'); }
+.hero-slide.slide-3 { background-image: url('imagenes/imagen3.png'); }
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* Fallback si no hay imágenes */
+.hero-bg-fallback {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, #0a142e 0%, #050a15 80%);
+    z-index: -1;
+}
+
+/* Contenido del hero encima de los slides */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(0, 51, 153, 0.5),
+        2px 2px 0px #4a4a4a;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+    color: #e0e0e0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Indicadores de slide (puntitos) */
+.hero-dots {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.hero-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    border: 2px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.hero-dot.active {
+    background: #D52B1E;
+    border-color: #ff4d40;
+    transform: scale(1.25);
+}
+
+/* Botón de acción principal */
+.btn-unete {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #D52B1E;
+    /* Rojo */
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 2px solid #ff4d40;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(213, 43, 30, 0.4);
+}
+
+.btn-unete:hover {
+    background-color: #ff1a00;
+    box-shadow: 0 6px 20px rgba(213, 43, 30, 0.6);
+    transform: scale(1.05);
+}
+
+/* --- SECCIÓN DE INFORMACIÓN (Features) --- */
+.info-section {
+    padding: 5rem 2rem;
+    text-align: center;
+    background-color: #030812;
+}
+
+.info-section h2 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-box {
+    background: linear-gradient(145deg, #0a1122, #050a15);
+    border: 1px solid #1a2b52;
+    border-top: 3px solid #003399;
+    /* Detalle azul superior */
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 51, 153, 0.3);
+    border-top: 3px solid #D52B1E;
+    /* Cambia a rojo al pasar el mouse */
+}
+
+.feature-box h3 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.feature-box p {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #010308;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid #1a1a1a;
+}
+
+footer p {
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+
+/* Respeta preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+        transition: none;
+    }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Convoys - VTC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="events.css">
+</head>
+
+<body>
+
+    <nav class="vtc-navbar">
+        <a href="index.html" class="nav-logo">Hub <span>Dinastya</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">INICIO</a></li>
+            <li><a href="about.html">Sobre Nosotros</a></li>
+            <li><a href="events.html" style="color: var(--primary-accent);">Convoys</a></li>
+            <li><a href="news.html">Noticias</a></li>
+            <li><a href="hub.html">Nuestra Gente</a></li>
+            <li><a href="gallery.html">Galería</a></li>
+            <li><a href="contact.html">¡UNETE!</a></li>
+        </ul>
+    </nav>
+
+    <header class="header-convoys">
+        <h1>Cartelera de Convoys</h1>
+        <div class="divisor"></div>
+    </header>
+
+    <main class="convoys-grid" id="convoys-container">
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // 1. Configura tus credenciales y crea el cliente (usamos 'client' para no duplicar 'supabase')
+        const supabaseUrl = 'https://njkiskomshvikwvxbpbf.supabase.co';
+        const supabaseKey = 'sb_publishable_FRN5siu71w2-l0mCNpcZLA_3-F2Wmls';
+        const client = supabase.createClient(supabaseUrl, supabaseKey); // Cambiamos 'supabase' por 'client'
+
+        // 2. Función para cargar los convoys
+        async function cargarConvoys() {
+            const contenedor = document.getElementById('convoys-container');
+
+            // ... (el resto del código igual) ...
+
+            try {
+                // Pedimos los datos a Supabase (aquí usamos 'client' en lugar de 'supabase')
+                const { data, error } = await client
+                    .from('convoys')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                // ... (el resto del código igual) ...
+
+                if (error) throw error;
+
+                // Limpiamos el contenedor
+                contenedor.innerHTML = '';
+
+                // Si no hay convoys en la base de datos
+                if (data.length === 0) {
+                    contenedor.innerHTML = '<p style="text-align:center; width:100%;">No hay convoys programados por el momento.</p>';
+                    return;
+                }
+
+                // 3. Recorremos los datos y creamos las tarjetas dinámicamente
+                data.forEach(convoy => {
+                    // Lógica para el color de la etiqueta (ETS2 azul, ATS naranjo)
+                    // Verificamos si el texto del juego incluye "ETS2"
+                    let tagClase = convoy.juego.toUpperCase().includes('ETS2') ? 'tag-game-ets2' : 'tag-game-ats';
+
+                    // Construimos el HTML de la tarjeta inyectando las variables de la base de datos
+                    const tarjetaHTML = `
+                        <article class="convoy-card">
+                            <div class="convoy-banner" style="background-image: url('${convoy.url_imagen}');">
+                                <div class="tags-container">
+                                    <span class="tag ${tagClase}">${convoy.juego}</span>
+                                </div>
+                            </div>
+                            <div class="convoy-details">
+                                <h2 class="convoy-title">${convoy.titulo}</h2>
+                                <div class="info-row">
+                                    <strong>Ruta:</strong> <span>${convoy.ruta}</span>
+                                </div>
+                                <div class="info-row">
+                                    <strong>Fecha:</strong> <span>${convoy.fecha}</span>
+                                </div>
+                                <div class="info-row">
+                                    <strong>Hora:</strong> <span>${convoy.hora}</span>
+                                </div>
+                                <div class="info-row">
+                                    <strong>Server:</strong> <span>${convoy.servidor}</span>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+
+                    // Sumamos la tarjeta recién creada al contenedor principal
+                    contenedor.innerHTML += tarjetaHTML;
+                });
+
+            } catch (error) {
+                console.error('Error al cargar convoys:', error);
+                contenedor.innerHTML = '<p style="text-align:center; width:100%; color: #D52B1E;">Hubo un error al cargar la cartelera.</p>';
+            }
+        }
+
+        // Ejecutamos la función apenas cargue la página
+        cargarConvoys();
+    </script>
+
+</body>
+
+</html>

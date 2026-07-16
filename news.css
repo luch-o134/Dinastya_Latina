@@ -1,0 +1,273 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --nav-bg: #0b1120;
+    --primary-accent: #D52B1E; 
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Urbanist', sans-serif;
+    padding-top: 90px;
+}
+
+/* NAVBAR (Igual a tus otras páginas) */
+.vtc-navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 70px;
+    background-color: var(--nav-bg);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 1000; border-bottom: 2px solid var(--primary-accent);
+}
+/* Contenedor del nav */
+nav {
+    display: flex; /* Esto pone los elementos uno al lado del otro */
+    justify-content: center; /* Centra los links en la pantalla */
+    gap: 30px; /* Espacio entre cada link */
+    background-color: #0b1120; /* Color de fondo oscuro */
+    padding: 20px 0;
+    border-bottom: 2px solid #D52B1E; /* Línea roja abajo */
+}
+
+/* Estilo para todos los enlaces del nav */
+nav a {
+    text-decoration: none; /* Quita el subrayado feo */
+    color: #f8fafc; /* Color del texto */
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: color 0.3s ease; /* Suaviza el cambio de color al pasar el mouse */
+}
+
+/* Efecto al pasar el mouse */
+nav a:hover {
+    color: #D52B1E; /* Cambia a tu color rojo accent */
+}
+
+/* Estilo para el link activo */
+nav a.active {
+    color: #D52B1E;
+    border-bottom: 2px solid #D52B1E;
+    padding-bottom: 4px;
+}
+
+/* HEADER SECCIÓN NOTICIAS */
+.header-noticias {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+.header-noticias h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+.header-noticias h1 span {
+    color: var(--primary-accent);
+}
+.divisor {
+    width: 80px; height: 4px;
+    background-color: var(--primary-accent);
+    margin: 15px auto; border-radius: 2px;
+}
+.header-noticias p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+/* GRILLA DE NOTICIAS */
+.news-grid {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* DISEÑO DE LA TARJETA (CARD) */
+.news-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(213, 43, 30, 0.2);
+    border-color: rgba(213, 43, 30, 0.5);
+}
+
+.news-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.news-date {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: var(--primary-accent);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.news-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.news-content h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.news-content p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Empuja el botón hacia abajo */
+}
+
+.btn-read-more {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--primary-accent);
+    text-decoration: none;
+    font-weight: 700;
+    border: 2px solid var(--primary-accent);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn-read-more:hover {
+    background-color: var(--primary-accent);
+    color: #fff;
+}
+
+/* --- DISEÑO DEL MODAL (VENTANA EMERGENTE) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(6px); /* Efecto cristal */
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-accent);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+}
+
+/* Animación de entrada de la caja */
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: var(--primary-accent);
+    color: white;
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-close:hover {
+    background: #ff3b2f;
+    transform: scale(1.1);
+}
+
+#modal-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--primary-accent);
+}
+
+.modal-body {
+    padding: 35px;
+}
+
+.modal-date {
+    color: var(--primary-accent);
+    font-weight: 800;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#modal-title {
+    font-size: 2.2rem;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+#modal-desc {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    white-space: pre-wrap; /* Mantiene los saltos de línea de Discord */
+}
+
+/* Ajuste al botón de la tarjeta */
+.btn-read-more {
+    cursor: pointer;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 1rem;
+}

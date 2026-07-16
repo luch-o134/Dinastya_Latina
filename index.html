@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亗DINASTYA LATINA亗 | VTC TruckersMP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="active">INICIO</a>
+            <a href="about.html">SOBRE NOSOTROS</a>
+            <a href="events.html">CONVOYS Y EVENTOS</a>
+            <a href="news.html">NOTICIAS</a>
+            <a href="hub.html">NUESTRA GENTE</a>
+            <a href="gallery.html">GALERÍA</a>
+            <a href="contact.html">¡UNETE!</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <!-- Fallback por si no hay imágenes -->
+        <div class="hero-bg-fallback"></div>
+
+        <!-- Slides de fondo -->
+        <div class="hero-slide slide-1 active"></div>
+        <div class="hero-slide slide-2"></div>
+        <div class="hero-slide slide-3"></div>
+
+        <!-- Contenido -->
+        <div class="hero-content">
+            <h1>亗DINASTYA LATINA亗</h1>
+            <p>Somos una Virtual Trucking Company (VTC) dedicada a brindar la mejor experiencia de simulación, compañerismo y rutas en TruckersMP. ¿Estás listo para recorrer los caminos con nosotros?</p>
+            <a href="contact.html" class="btn-unete">¡Únete a nuestra VTC!</a>
+        </div>
+
+        <!-- Indicadores de posición -->
+        <div class="hero-dots">
+            <div class="hero-dot active" data-index="0"></div>
+            <div class="hero-dot" data-index="1"></div>
+            <div class="hero-dot" data-index="2"></div>
+        </div>
+    </section>
+
+    <script>
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots   = document.querySelectorAll('.hero-dot');
+        let current  = 0;
+        const INTERVAL = 3000; // 5 segundos por imagen
+
+        function goTo(index) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = index % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        // Avance automático
+        let timer = setInterval(() => goTo(current + 1), INTERVAL);
+
+        // Click en los puntitos
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                clearInterval(timer);
+                goTo(parseInt(dot.dataset.index));
+                timer = setInterval(() => goTo(current + 1), INTERVAL);
+            });
+        });
+    </script>
+
+    <section class="info-section">
+        <h2>¿Por qué elegir Dinastya Latina?</h2>
+        <div class="features">
+            <div class="feature-box">
+                <h3>Comunidad Activa</h3>
+                <p>Contamos con un grupo de conductores apasionados por la simulación. Siempre habrá alguien con quien compartir una ruta y una buena charla por Discord.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Convoys Semanales</h3>
+                <p>Organizamos y asistimos a los mejores eventos y convoys dentro de TruckersMP. Rutas planeadas, seguridad y mucha diversión garantizada.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Crecimiento</h3>
+                <p>Registramos nuestros kilómetros, No exigimos kilometros solo queremos tu diversion en la empresa. Tu apollo y diversion en la carretera es valorado.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 亗DINASTYA LATINA亗 VTC. Todos los derechos reservados. No afiliados con SCS Software o TruckersMP.</p>
+    </footer>
+
+</body>
+</html>

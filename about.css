@@ -1,0 +1,268 @@
+/* =========================================
+   ESTILOS GENERALES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #050a15; 
+    color: #e0e0e0; 
+    line-height: 1.6;
+}
+
+header {
+    background-color: #020612;
+    border-bottom: 3px solid #D52B1E; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: rgba(213, 43, 30, 0.2); 
+    transform: translateY(-2px);
+}
+
+nav a.active {
+    background-color: #003399; 
+    color: #ffffff;
+    border: 1px solid #0044cc;
+}
+
+/* =========================================
+   ESTILOS PARA "SOBRE NOSOTROS"
+   ========================================= */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #003399;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.title-wrapper {
+    text-align: center;
+}
+
+/* --- SECCIÓN HÉROE --- */
+.hero-about {
+    background: linear-gradient(rgba(4, 31, 87, 0.85), rgba(0, 0, 0, 0.95)), url('/imagenes/imagen4.png') center/cover;
+    text-align: center;
+    padding: 6rem 2rem;
+    border-bottom: 1px solid rgba(213, 43, 30, 0.3);
+}
+
+.hero-about h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-about p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #b0b0b0;
+}
+
+/* --- GRIDS --- */
+.grid-2, .grid-3 {
+    display: grid;
+    gap: 2rem;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* --- TARJETAS --- */
+.card {
+    background-color: #091224; 
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 4px solid #003399; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(213, 43, 30, 0.15); 
+    border-top: 4px solid #D52B1E; 
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.card p {
+    color: #a0aabf;
+}
+
+/* --- SECCIÓN RECONOCIMIENTO MENSUAL --- */
+.award-box {
+    background: linear-gradient(135deg, #020612 0%, #091224 100%);
+    border-left: 5px solid #D52B1E;
+    border-right: 5px solid #003399;
+    border-radius: 8px;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    margin-bottom: 2rem;
+}
+
+.award-icon {
+    font-size: 5rem;
+    text-shadow: 0 0 20px rgba(213, 43, 30, 0.3);
+    flex-shrink: 0;
+}
+
+.award-text h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.award-text p {
+    font-size: 1.1rem;
+    color: #a0aabf;
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .award-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- TARJETAS DE STAFF --- */
+.staff-card {
+    text-align: center;
+    border-top: none;
+    border-bottom: 4px solid #D52B1E;
+}
+
+.staff-avatar {
+    width: 120px;
+    height: 120px;
+    background-color: #020612;
+    border: 3px solid #003399;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.role {
+    color: #D52B1E;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* --- SECCIÓN CTA --- */
+.cta-section {
+    background-color: #020612;
+    text-align: center;
+    padding: 5rem 2rem;
+    border-top: 2px solid #003399;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #D52B1E;
+    color: #ffffff;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(213, 43, 30, 0.4);
+}
+
+.btn:hover {
+    background-color: #ff3a2d;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(213, 43, 30, 0.6);
+}
+
+/* =========================================
+   NUEVO: CONTENEDOR ESPECIAL PARA STAFF 
+   (3 ARRIBA, 2 ABAJO)
+   ========================================= */
+.staff-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1100px; /* Obliga a saltar de línea al cuarto elemento */
+    margin: 0 auto;
+}
+
+.staff-flex .card {
+    flex: 1 1 calc(33.333% - 2rem); 
+    min-width: 280px; 
+    max-width: 340px; /* Mantiene el tamaño idéntico para los de abajo */
+}

@@ -1,0 +1,211 @@
+/* =========================================
+   ESTILOS GENERALES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #050a15; /* Azul extremadamente oscuro, casi negro */
+    color: #e0e0e0; /* Texto plateado/metálico */
+    line-height: 1.6;
+}
+
+/* =========================================
+   BARRA DE NAVEGACIÓN
+   ========================================= */
+header {
+    background-color: #020612;
+    border-bottom: 3px solid #D52B1E; /* Rojo vibrante tipo bandera */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: rgba(213, 43, 30, 0.2);
+    transform: translateY(-2px);
+}
+
+nav a.active {
+    background-color: #003399;
+    color: #ffffff;
+    border: 1px solid #0044cc;
+}
+/* =========================================
+   PÁGINAS SECUNDARIAS (Sobre Nosotros y Flota)
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-wrapper {
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #003399;
+    display: inline-block;
+    padding-bottom: 10px;
+    color: #ffffff;
+}
+
+.hero-about {
+    background: radial-gradient(circle, #0a142e 0%, #050a15 80%);
+    text-align: center;
+    padding: 6rem 2rem;
+    border-bottom: 1px solid rgba(213, 43, 30, 0.3);
+}
+
+.hero-about h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-about p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #b0b0b0;
+}
+
+/* Cuadrícula unificada para la Flota y el Equipo */
+.grid-flota {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Diseño unificado de Tarjetas (Staff y Conductores) */
+.card, .staff-card {
+    background: linear-gradient(145deg, #0a1122, #050a15);
+    border: 1px solid #1a2b52;
+    border-top: 3px solid #003399;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover, .staff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 51, 153, 0.3);
+    border-top: 3px solid #D52B1E;
+}
+
+.card h3, .staff-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.card p, .staff-card p {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+}
+
+.staff-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: #020612;
+    border: 3px solid #003399;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.role {
+    color: #D52B1E;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    background-color: #010308;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid #1a1a1a;
+    margin-top: auto;
+}
+
+footer p {
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+        transition: none;
+    }
+}
+
+/* =========================================
+   ESTRUCTURA PIRÁMIDE (2 ARRIBA, 3 ABAJO)
+   ========================================= */
+.admin-pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.pyramid-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap; /* Permite que en celulares se pongan una debajo de otra */
+    width: 100%;
+}
+
+/* Fijamos el tamaño de las tarjetas para que se vean uniformes */
+.pyramid-row .staff-card {
+    width: 100%;
+    min-width: 280px;
+    max-width: 320px; 
+}

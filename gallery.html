@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería | VTC</title>
+    <link rel="stylesheet" href="gallery.css"> 
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">INICIO</a>
+            <a href="about.html">SOBRE NOSOTROS</a>
+            <a href="events.html">CONVOYS Y EVENTOS</a>
+            <a href="news.html">NOTICIAS</a>
+            <a href="hub.html">NUESTRA GENTE</a>
+            <a href="gallery.html" class="active">GALERÍA</a>
+            <a href="contact.html">¡UNETE!</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-about">
+            <h1>Galería de la Flota</h1>
+            <p>Las mejores postales de nuestras rutas sacadas directo desde nuestro Discord.</p>
+        </section>
+
+        <section class="container">
+            <div class="title-wrapper">
+                <h2 class="section-title">Fotos de las ultimas rutas</h2>
+            </div>
+            
+            <div class="grid-galeria" id="galeria-fotos">
+                </div>
+        </section>
+    </main>
+
+    <script>
+        // CONFIGURACIÓN DE TU SUPABASE
+        // Reemplaza esto con tus credenciales reales de Supabase
+        const SUPABASE_URL = 'https://njkiskomshvikwvxbpbf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_FRN5siu71w2-l0mCNpcZLA_3-F2Wmls';
+
+        async function cargarGaleria() {
+            const contenedor = document.getElementById('galeria-fotos');
+            
+            try {
+                // Hacemos la petición a la API de Supabase ordenando por las más recientes
+                const respuesta = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+
+                if (!respuesta.ok) {
+                    throw new Error('Error al conectar con Supabase');
+                }
+
+                const fotos = await respuesta.json();
+
+                // Si no hay fotos todavía
+                if (fotos.length === 0) {
+                    contenedor.innerHTML = `<p style="text-align:center; color:#a0a0a0; width:100%;">Pronto verás las fotos de los convoys aquí...</p>`;
+                    return;
+                }
+
+                // Limpiamos el contenedor por si acaso
+                contenedor.innerHTML = '';
+
+                // Recorremos las fotos de la base de datos y creamos las etiquetas <img>
+                fotos.forEach(foto => {
+                    const img = document.createElement('img');
+                    img.src = foto.url_imagen;
+                    img.alt = foto.descripcion || 'Foto de Convoy';
+                    img.className = 'foto-galeria';
+                    
+                    contenedor.appendChild(img);
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                contenedor.innerHTML = `<p style="text-align:center; color:#D52B1E; width:100%;">Error al cargar las imágenes. Inténtalo más tarde.</p>`;
+            }
+        }
+
+        // Ejecutar la función cuando cargue la página
+        document.addEventListener('DOMContentLoaded', cargarGaleria);
+    </script>
+
+</body>
+</html>
