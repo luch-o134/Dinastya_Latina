@@ -4,30 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias | Hub Dinastya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Noticias | 亗DINASTYA LATINA亗</title>
+    <!-- Usamos el CSS específico de noticias que unificamos -->
     <link rel="stylesheet" href="news.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <a href="index.html" class="active">INICIO</a>
-        <a href="about.html">SOBRE NOSOTROS</a>
-        <a href="events.html">CONVOYS Y EVENTOS</a>
-        <a href="news.html">NOTICIAS</a>
-        <a href="hub.html">NUESTRA GENTE</a>
-        <a href="gallery.html">GALERÍA</a>
-        <a href="contact.html">¡UNETE!</a>
-    </nav>
+    <!-- Usamos la misma estructura de header y nav de tu inicio -->
+    <header>
+        <nav>
+            <a href="index.html">INICIO</a>
+            <a href="about.html">SOBRE NOSOTROS</a>
+            <a href="events.html">CONVOYS Y EVENTOS</a>
+            <a href="news.html" class="active">NOTICIAS</a>
+            <a href="hub.html">NUESTRA GENTE</a>
+            <a href="gallery.html">GALERÍA</a>
+            <a href="contact.html">¡UNETE!</a>
+        </nav>
+    </header>
 
     <!-- HEADER DE LA SECCIÓN -->
-    <header class="header-noticias">
+    <section class="header-noticias">
         <h1>Últimas <span>Noticias</span></h1>
         <div class="divisor"></div>
         <p>Mantente al día con las últimas novedades y actualizaciones de nuestra VTC.</p>
-    </header>
+    </section>
 
     <!-- CONTENEDOR DE LAS TARJETAS -->
     <main class="news-grid" id="news-container">
@@ -47,20 +49,28 @@
         </div>
     </div>
 
+    <!-- FOOTER IDENTICO AL INICIO -->
+    <footer>
+        <p>&copy; 2026 亗DINASTYA LATINA亗 VTC. Todos los derechos reservados. No afiliados con SCS Software o TruckersMP.</p>
+    </footer>
+
+    <!-- Importamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- SCRIPT DE SUPABASE -->
+    
     <script>
+        // Tus credenciales
         const supabaseUrl = 'https://njkiskomshvikwvxbpbf.supabase.co';
         const supabaseKey = 'sb_publishable_FRN5siu71w2-l0mCNpcZLA_3-F2Wmls';
         const client = supabase.createClient(supabaseUrl, supabaseKey);
 
         async function cargarNoticias() {
             const contenedor = document.getElementById('news-container');
-            contenedor.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1;">Cargando novedades...</p>';
+            contenedor.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; color: #e0e0e0;">Cargando novedades...</p>';
 
             try {
+                // AQUÍ ESTABA EL ERROR: Cambiamos 'noticias' por 'news'
                 const { data, error } = await client
-                    .from('noticias')
+                    .from('news')
                     .select('*')
                     .order('created_at', { ascending: false });
 
@@ -68,22 +78,24 @@
                 contenedor.innerHTML = '';
 
                 if (data.length === 0) {
-                    contenedor.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1;">No hay noticias publicadas por ahora.</p>';
+                    contenedor.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1 / -1; color: #e0e0e0;">No hay noticias publicadas por ahora.</p>';
                     return;
                 }
 
                 data.forEach(noticia => {
                     const fechaNoticia = new Date(noticia.created_at).toLocaleDateString('es-ES');
-                    const imagenUrl = (noticia.url_imagen && noticia.url_imagen !== 'null')
-                        ? noticia.url_imagen
+                    
+                    // CORREGIDO: Usamos imagen_url como está en tu Supabase
+                    let imgLimpia = noticia.imagen_url ? noticia.imagen_url.trim() : '';
+                    const imagenUrl = (imgLimpia && imgLimpia !== 'null' && imgLimpia !== 'EMPTY')
+                        ? imgLimpia
                         : 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=600&auto=format&fit=crop';
 
-                    // Cortar la descripción para la tarjeta (máximo 90 letras)
-                    const descCorta = noticia.descripcion.length > 90
-                        ? noticia.descripcion.substring(0, 90) + '...'
-                        : noticia.descripcion;
+                    // CORREGIDO: Usamos contenido como está en tu Supabase
+                    const descCorta = noticia.contenido && noticia.contenido.length > 90
+                        ? noticia.contenido.substring(0, 90) + '...'
+                        : noticia.contenido;
 
-                    // Creamos la tarjeta
                     const article = document.createElement('article');
                     article.className = 'news-card';
                     article.innerHTML = `
@@ -97,9 +109,9 @@
                         </div>
                     `;
 
-                    // Le damos vida al botón para que abra el modal con los datos de esta noticia
+                    // CORREGIDO: Pasamos noticia.contenido al modal
                     const btn = article.querySelector('.btn-read-more');
-                    btn.addEventListener('click', () => abrirModal(noticia.titulo, noticia.descripcion, fechaNoticia, imagenUrl));
+                    btn.addEventListener('click', () => abrirModal(noticia.titulo, noticia.contenido, fechaNoticia, imagenUrl));
 
                     contenedor.appendChild(article);
                 });
@@ -110,7 +122,6 @@
             }
         }
 
-        // --- FUNCIONES DEL MODAL ---
         function abrirModal(titulo, descripcion, fecha, imagen) {
             document.getElementById('modal-title').textContent = titulo;
             document.getElementById('modal-desc').textContent = descripcion;
@@ -118,17 +129,16 @@
             document.getElementById('modal-img').src = imagen;
 
             const modal = document.getElementById('modal-noticia');
-            modal.style.display = 'flex'; // Primero lo hacemos visible
-            setTimeout(() => modal.classList.add('active'), 10); // Luego activamos la animación
+            modal.style.display = 'flex'; 
+            setTimeout(() => modal.classList.add('active'), 10); 
         }
 
         function cerrarModal() {
             const modal = document.getElementById('modal-noticia');
-            modal.classList.remove('active'); // Quitamos la animación
-            setTimeout(() => modal.style.display = 'none', 300); // Lo ocultamos después de que termine
+            modal.classList.remove('active'); 
+            setTimeout(() => modal.style.display = 'none', 300); 
         }
 
-        // Cerrar modal si hacen clic afuera de la caja
         window.onclick = function (event) {
             const modal = document.getElementById('modal-noticia');
             if (event.target == modal) {
@@ -136,9 +146,9 @@
             }
         }
 
+        // Llamamos a la función al cargar la página
         cargarNoticias();
     </script>
 
 </body>
-
 </html>
