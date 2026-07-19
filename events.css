@@ -24,52 +24,82 @@ body {
     padding-bottom: 40px;
 }
 
-/* --- NAVBAR --- */
-.vtc-navbar {
+/* --- BARRA DE NAVEGACIÓN UNIFICADA --- */
+/* --- BARRA DE NAVEGACIÓN UNIFICADA --- */
+.main-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    background-color: var(--nav-bg);
+    height: 75px;
+    background-color: #020612;
+    border-bottom: 3px solid #D52B1E;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Alinea todo al medio verticalmente */
     padding: 0 40px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.7);
     z-index: 1000;
-    border-bottom: 2px solid var(--primary-accent);
 }
 
+/* Logo a la izquierda */
 .nav-logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-main);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffffff;
     text-decoration: none;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    z-index: 2; /* Mantiene el logo por encima */
 }
 
 .nav-logo span {
-    color: var(--primary-accent);
+    color: #D52B1E;
 }
 
-.nav-links {
+/* Enlaces de navegación CENTRADOS */
+.main-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Este es el truco para el centro exacto */
     display: flex;
-    gap: 25px;
-    list-style: none;
+    gap: 15px;
+    align-items: center;
+    width: max-content; /* Evita que los botones se aprieten */
 }
 
-.nav-links a {
-    color: var(--text-main);
+.main-nav a {
     text-decoration: none;
+    color: #e0e0e0;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: var(--primary-accent);
+.main-nav a:hover {
+    color: #ffffff;
+    background-color: rgba(213, 43, 30, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Botón de la página actual (Azul) */
+.main-nav a.active {
+    background-color: #003399;
+    color: #ffffff;
+    border: 1px solid #0044cc;
+}
+
+/* Botón especial de ¡ÚNETE! (Rojo) */
+.main-nav a.btn-nav-unete {
+    background-color: #D52B1E;
+    color: #ffffff;
+    border: 1px solid #ff4d40;
+    margin-left: 10px;
+}
+
+.main-nav a.btn-nav-unete:hover {
+    background-color: #ff1a00;
+    box-shadow: 0 4px 15px rgba(213, 43, 30, 0.4);
 }
 
 /* --- HEADER CARTELERA --- */

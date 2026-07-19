@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noticias | 亗DINASTYA LATINA亗</title>
-    <!-- Usamos el CSS específico de noticias que unificamos -->
+    <link rel="icon" type="image/png" href="imagenes/icono.png">
     <link rel="stylesheet" href="news.css">
 </head>
 
 <body>
 
-    <!-- Usamos la misma estructura de header y nav de tu inicio -->
-    <header>
-        <nav>
+    <header class="main-header">
+
+        <nav class="main-nav">
             <a href="index.html">INICIO</a>
             <a href="about.html">SOBRE NOSOTROS</a>
             <a href="events.html">CONVOYS Y EVENTOS</a>
             <a href="news.html" class="active">NOTICIAS</a>
             <a href="hub.html">NUESTRA GENTE</a>
             <a href="gallery.html">GALERÍA</a>
-            <a href="contact.html">¡UNETE!</a>
+            <a href="contact.html" class="btn-nav-unete">¡ÚNETE!</a>
         </nav>
     </header>
 
@@ -51,12 +51,13 @@
 
     <!-- FOOTER IDENTICO AL INICIO -->
     <footer>
-        <p>&copy; 2026 亗DINASTYA LATINA亗 VTC. Todos los derechos reservados. No afiliados con SCS Software o TruckersMP.</p>
+        <p>&copy; 2026 亗DINASTYA LATINA亗 VTC. Todos los derechos reservados. No afiliados con SCS Software o TruckersMP.
+        </p>
     </footer>
 
     <!-- Importamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <script>
         // Tus credenciales
         const supabaseUrl = 'https://njkiskomshvikwvxbpbf.supabase.co';
@@ -83,33 +84,36 @@
                 }
 
                 data.forEach(noticia => {
-                    const fechaNoticia = new Date(noticia.created_at).toLocaleDateString('es-ES');
-                    
-                    // CORREGIDO: Usamos imagen_url como está en tu Supabase
+                    // 1. Tomamos la columna created_at y la formateamos a fecha local
+                    const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const fechaNoticia = new Date(noticia.created_at).toLocaleDateString('es-CL', opcionesFecha);
+
                     let imgLimpia = noticia.imagen_url ? noticia.imagen_url.trim() : '';
                     const imagenUrl = (imgLimpia && imgLimpia !== 'null' && imgLimpia !== 'EMPTY')
                         ? imgLimpia
                         : 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=600&auto=format&fit=crop';
 
-                    // CORREGIDO: Usamos contenido como está en tu Supabase
                     const descCorta = noticia.contenido && noticia.contenido.length > 90
                         ? noticia.contenido.substring(0, 90) + '...'
                         : noticia.contenido;
 
                     const article = document.createElement('article');
                     article.className = 'news-card';
+
+                    // 2. Insertamos la fecha justo debajo del título (usando un <span> para el texto)
                     article.innerHTML = `
                         <div class="news-img" style="background-image: url('${imagenUrl}');">
-                            <div class="news-date">${fechaNoticia}</div>
                         </div>
                         <div class="news-content">
                             <h2>${noticia.titulo}</h2>
+                            <span style="color: #a0a0a0; font-size: 0.85em; display: block; margin-bottom: 10px; font-weight: bold;">
+                                📅 ${fechaNoticia}
+                            </span>
                             <p>${descCorta}</p>
                             <button class="btn-read-more">Más detalles</button>
                         </div>
                     `;
 
-                    // CORREGIDO: Pasamos noticia.contenido al modal
                     const btn = article.querySelector('.btn-read-more');
                     btn.addEventListener('click', () => abrirModal(noticia.titulo, noticia.contenido, fechaNoticia, imagenUrl));
 
@@ -129,14 +133,14 @@
             document.getElementById('modal-img').src = imagen;
 
             const modal = document.getElementById('modal-noticia');
-            modal.style.display = 'flex'; 
-            setTimeout(() => modal.classList.add('active'), 10); 
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
         function cerrarModal() {
             const modal = document.getElementById('modal-noticia');
-            modal.classList.remove('active'); 
-            setTimeout(() => modal.style.display = 'none', 300); 
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
         }
 
         window.onclick = function (event) {
@@ -151,4 +155,5 @@
     </script>
 
 </body>
+
 </html>
